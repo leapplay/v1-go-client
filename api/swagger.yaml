@@ -1,0 +1,1614 @@
+---
+swagger: "2.0"
+info:
+  description: "Learn more at https://www.leap-play.com"
+  version: "v1"
+  title: "Leap Play"
+host: "api.leap-play.com"
+schemes:
+- "https"
+paths:
+  /api/v1/accounts/register:
+    post:
+      tags:
+      - "Accounts"
+      summary: "Registers a User Account"
+      operationId: "Register"
+      consumes:
+      - "application/json-patch+json"
+      - "application/json"
+      - "text/json"
+      - "application/*+json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "registerRequest"
+        description: ""
+        required: true
+        schema:
+          $ref: "#/definitions/RequestRegisterUser"
+        x-exportParamName: "RegisterRequest"
+      responses:
+        200:
+          description: "Success"
+        400:
+          description: "Bad Request"
+          examples:
+            application/json:
+              errorTag:
+              - "First Error Detail found under this tag"
+              - "Second Error Details found under this tag"
+          schema:
+            type: "object"
+            additionalProperties:
+              type: "array"
+              items:
+                type: "string"
+        429:
+          description: "Client Error"
+          schema:
+            type: "string"
+  /api/v1/accounts/password/change:
+    post:
+      tags:
+      - "Accounts"
+      summary: "Changes the Password and provides a new Refresh Token (Auth)"
+      operationId: "ChangePassword"
+      consumes:
+      - "application/json-patch+json"
+      - "application/json"
+      - "text/json"
+      - "application/*+json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "changePasswordRequest"
+        description: "The change password request."
+        required: true
+        schema:
+          $ref: "#/definitions/RequestChangePassword"
+        x-exportParamName: "ChangePasswordRequest"
+      responses:
+        200:
+          description: "Success"
+          examples:
+            application/json:
+              refreshToken: "GfBT1FnxNEl5GhpahoZ8sI5L9m7LlkwoHtUyboFFWwdLC2KKtE+MfpnmWbK12sdkzJ6I1e9EzCaO/FneHQKKhNNsFZiXHreBE/o0XkUDqVPQjErk07IbLGm5z4IYXmeOrbkuRD0hYN9eYAAxj3QGh4tS8I7lo0hGsxZWigpMFLen2+GgrOwu/oZJC7zXvlSrcpbz1C32qh5ns9cJf0bLA8xB13aI8K0Ctu2MBkYyMiF/jRpi"
+          schema:
+            $ref: "#/definitions/ChangedPasswordUser"
+        400:
+          description: "Bad Request"
+          examples:
+            application/json:
+              errorTag:
+              - "First Error Detail found under this tag"
+              - "Second Error Details found under this tag"
+          schema:
+            type: "object"
+            additionalProperties:
+              type: "array"
+              items:
+                type: "string"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+      security:
+      - Bearer: []
+  /api/v1/accounts/password/forgot:
+    post:
+      tags:
+      - "Accounts"
+      summary: "Receives a Reset Token that is required to reset the Password"
+      operationId: "RequestPassword"
+      consumes:
+      - "application/json-patch+json"
+      - "application/json"
+      - "text/json"
+      - "application/*+json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "forgotPasswordRequest"
+        description: "Request object holding the required parameter"
+        required: true
+        schema:
+          $ref: "#/definitions/RequestForgotPassword"
+        x-exportParamName: "ForgotPasswordRequest"
+      responses:
+        200:
+          description: "Success"
+        400:
+          description: "Bad Request"
+          examples:
+            application/json:
+              errorTag:
+              - "First Error Detail found under this tag"
+              - "Second Error Details found under this tag"
+          schema:
+            type: "object"
+            additionalProperties:
+              type: "array"
+              items:
+                type: "string"
+        429:
+          description: "Client Error"
+          schema:
+            type: "string"
+  /api/v1/accounts/password/reset:
+    post:
+      tags:
+      - "Accounts"
+      summary: "Resets the Password with an Reset Token"
+      operationId: "ResetPassword"
+      consumes:
+      - "application/json-patch+json"
+      - "application/json"
+      - "text/json"
+      - "application/*+json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "resetPasswordRequest"
+        description: "The request reset password."
+        required: true
+        schema:
+          $ref: "#/definitions/RequestResetPassword"
+        x-exportParamName: "ResetPasswordRequest"
+      responses:
+        200:
+          description: "Success"
+        400:
+          description: "Bad Request"
+          examples:
+            application/json:
+              errorTag:
+              - "First Error Detail found under this tag"
+              - "Second Error Details found under this tag"
+          schema:
+            type: "object"
+            additionalProperties:
+              type: "array"
+              items:
+                type: "string"
+        429:
+          description: "Client Error"
+          schema:
+            type: "string"
+  /api/v1/accounts/email/confirmation:
+    post:
+      tags:
+      - "Accounts"
+      summary: "Confirms ownership of an E-Mail Address by an E-Mail Confirmation\
+        \ Token"
+      operationId: "ConfirmEmail"
+      consumes:
+      - "application/json-patch+json"
+      - "application/json"
+      - "text/json"
+      - "application/*+json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "emailConfirmationRequest"
+        description: "The request email confirmation."
+        required: true
+        schema:
+          $ref: "#/definitions/RequestEmailConfirmation"
+        x-exportParamName: "EmailConfirmationRequest"
+      responses:
+        200:
+          description: "Success"
+        400:
+          description: "Bad Request"
+          examples:
+            application/json:
+              errorTag:
+              - "First Error Detail found under this tag"
+              - "Second Error Details found under this tag"
+          schema:
+            type: "object"
+            additionalProperties:
+              type: "array"
+              items:
+                type: "string"
+        429:
+          description: "Client Error"
+          schema:
+            type: "string"
+  /api/v1/accounts/email/confirmation/send:
+    post:
+      tags:
+      - "Accounts"
+      summary: "Re-sends a message with a EMail Confirmation Token."
+      operationId: "ResendEMailConfirmation"
+      consumes:
+      - "application/json-patch+json"
+      - "application/json"
+      - "text/json"
+      - "application/*+json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "resendConfirmationEmailRequest"
+        description: "The resend email confirmation request."
+        required: true
+        schema:
+          $ref: "#/definitions/RequestResendConfirmationEmail"
+        x-exportParamName: "ResendConfirmationEmailRequest"
+      responses:
+        200:
+          description: "Success"
+        400:
+          description: "Bad Request"
+          examples:
+            application/json:
+              errorTag:
+              - "First Error Detail found under this tag"
+              - "Second Error Details found under this tag"
+          schema:
+            type: "object"
+            additionalProperties:
+              type: "array"
+              items:
+                type: "string"
+        429:
+          description: "Client Error"
+          schema:
+            type: "string"
+  /api/v1/auth/login:
+    post:
+      tags:
+      - "Auth"
+      summary: "Receive an Access and Refresh Token"
+      operationId: "Login"
+      consumes:
+      - "application/json-patch+json"
+      - "application/json"
+      - "text/json"
+      - "application/*+json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "loginRequest"
+        description: "Login Request Dto"
+        required: false
+        schema:
+          $ref: "#/definitions/RequestLoginModel"
+        x-exportParamName: "LoginRequest"
+      responses:
+        200:
+          description: "Success"
+          examples:
+            application/json:
+              accessToken:
+                token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJzdXBlcnVzZXIiLCJqdGkiOiJmNDNlMDUzMC1iOGUxLTQ2NzYtYmI2Zi0xMmE4YmQxOTNmNTciLCJpYXQiOjE1NTk4NzczMTEsIlVzZXJJZCI6ImJkNTdlMWQxLWVlZTYtNGIzOS04NjVkLWJkY2Y5ODBlNDE1ZiIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6WyJVc2VyIiwiQWNjb3VudGFudCIsIlNlcnZlck1hbmFnZXIiLCJDdXN0b21lclN1cHBvcnQiLCJBZG1pbmlzdHJhdG9yIl0sIm5iZiI6MTU1OTg3NzMxMSwiZXhwIjoxNTU5ODg0NTExLCJpc3MiOiJ3ZWJBcGkiLCJhdWQiOiJodHRwOi8vbG9jYWxob3N0OjUwMDAvIn0.TN8thk_6GxjphGzgIBH7w_uYiIPWzUAXVVJ65AWj9ag"
+                expiresIn: 7200
+              refreshToken: "GfBT1FnxNEl5GhpahoZ8sI5L9m7LlkwoHtUyboFFWwdLC2KKtE+MfpnmWbK12sdkzJ6I1e9EzCaO/FneHQKKhNNsFZiXHreBE/o0XkUDqVPQjErk07IbLGm5z4IYXmeOrbkuRD0hYN9eYAAxj3QGh4tS8I7lo0hGsxZWigpMFLen2+GgrOwu/oZJC7zXvlSrcpbz1C32qh5ns9cJf0bLA8xB13aI8K0Ctu2MBkYyMiF/jRpi"
+          schema:
+            $ref: "#/definitions/LoginResponse"
+        400:
+          description: "Bad Request"
+          examples:
+            application/json:
+              errorTag:
+              - "First Error Detail found under this tag"
+              - "Second Error Details found under this tag"
+          schema:
+            type: "object"
+            additionalProperties:
+              type: "array"
+              items:
+                type: "string"
+  /api/v1/auth/logout:
+    post:
+      tags:
+      - "Auth"
+      summary: "Invalidate the Refresh token (Auth)"
+      operationId: "Logout"
+      consumes: []
+      produces:
+      - "application/json"
+      parameters: []
+      responses:
+        200:
+          description: "Success"
+        400:
+          description: "Bad Request"
+          examples:
+            application/json:
+              errorTag:
+              - "First Error Detail found under this tag"
+              - "Second Error Details found under this tag"
+          schema:
+            type: "object"
+            additionalProperties:
+              type: "array"
+              items:
+                type: "string"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+      security:
+      - Bearer: []
+  /api/v1/auth/refreshtoken:
+    post:
+      tags:
+      - "Auth"
+      summary: "Receive a new Access token"
+      operationId: "RefreshToken"
+      consumes:
+      - "application/json-patch+json"
+      - "application/json"
+      - "text/json"
+      - "application/*+json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "requestTokenRefresh"
+        description: "Refresh Token Dto"
+        required: false
+        schema:
+          $ref: "#/definitions/RequestTokenRefresh"
+        x-exportParamName: "RequestTokenRefresh"
+      - name: "Authorization"
+        in: "header"
+        description: "Any previous Access Token."
+        required: false
+        type: "string"
+        x-exportParamName: "Authorization"
+        x-optionalDataType: "String"
+      responses:
+        200:
+          description: "Success"
+          examples:
+            application/json:
+              token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJzdXBlcnVzZXIiLCJqdGkiOiJmNDNlMDUzMC1iOGUxLTQ2NzYtYmI2Zi0xMmE4YmQxOTNmNTciLCJpYXQiOjE1NTk4NzczMTEsIlVzZXJJZCI6ImJkNTdlMWQxLWVlZTYtNGIzOS04NjVkLWJkY2Y5ODBlNDE1ZiIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6WyJVc2VyIiwiQWNjb3VudGFudCIsIlNlcnZlck1hbmFnZXIiLCJDdXN0b21lclN1cHBvcnQiLCJBZG1pbmlzdHJhdG9yIl0sIm5iZiI6MTU1OTg3NzMxMSwiZXhwIjoxNTU5ODg0NTExLCJpc3MiOiJ3ZWJBcGkiLCJhdWQiOiJodHRwOi8vbG9jYWxob3N0OjUwMDAvIn0.TN8thk_6GxjphGzgIBH7w_uYiIPWzUAXVVJ65AWj9ag"
+              expiresIn: 7200
+          schema:
+            $ref: "#/definitions/AccessToken"
+        400:
+          description: "Bad Request"
+          examples:
+            application/json:
+              errorTag:
+              - "First Error Detail found under this tag"
+              - "Second Error Details found under this tag"
+          schema:
+            type: "object"
+            additionalProperties:
+              type: "array"
+              items:
+                type: "string"
+  /api/v1/stations:
+    get:
+      tags:
+      - "Stations"
+      summary: "Gets Collection of Station States (Auth)"
+      operationId: "GetStates"
+      consumes: []
+      produces:
+      - "application/json"
+      parameters:
+      - name: "networkStateFilter"
+        in: "query"
+        description: "Optional Network State Filter"
+        required: false
+        type: "string"
+        enum:
+        - "Disconnected"
+        - "Connecting"
+        - "Connected"
+        x-exportParamName: "NetworkStateFilter"
+        x-optionalDataType: "String"
+      responses:
+        200:
+          description: "Success"
+          examples:
+            application/json:
+            - stationId: "838c3a21-aacb-4012-8011-f20f8767f09f"
+              displayName: "Arcade One / Blue Room"
+              controlMode: "Local"
+              networkState: "Connected"
+              session:
+                sessionId: "f7f93e8f-956c-4c61-a136-2302c5d1a4f4"
+                state: "Started"
+                startedOnUtc: "2019-06-07T11:32:07.064294+08:00"
+                maxDurationLimit: "00:05:58.1770650"
+            - stationId: "4bca67bf-cc6c-4c25-90d1-27ab5062d4dd"
+              displayName: "Arcade Two / Blue Room"
+              controlMode: "Remote"
+              networkState: "Connected"
+              session:
+                sessionId: "c45c33e3-2e91-4265-b3d7-7726ed25b838"
+                reference: "N-C:0007-P:0.50-D:00-05-00"
+                state: "Started"
+                startedOnUtc: "2019-06-07T11:50:56.913479+08:00"
+                startDuration: "00:05:00"
+                maxDurationLimit: "00:10:00"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/StationCurrentState"
+            uniqueItems: false
+        400:
+          description: "Bad Request"
+          examples:
+            application/json:
+              errorTag:
+              - "First Error Detail found under this tag"
+              - "Second Error Details found under this tag"
+          schema:
+            type: "object"
+            additionalProperties:
+              type: "array"
+              items:
+                type: "string"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+      security:
+      - Bearer: []
+    put:
+      tags:
+      - "Stations"
+      summary: "Creates a Station (Auth)"
+      operationId: "CreateStation"
+      consumes:
+      - "application/json-patch+json"
+      - "application/json"
+      - "text/json"
+      - "application/*+json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "createStation"
+        description: "Create Station Dto"
+        required: false
+        schema:
+          $ref: "#/definitions/RequestCreateStation"
+        x-exportParamName: "CreateStation"
+      responses:
+        200:
+          description: "Success"
+          examples:
+            application/json:
+              stationId: "838c3a21-aacb-4012-8011-f20f8767f09f"
+              displayName: "Arcade One / Blue Room"
+              qrCode: "http://api.myarcade.com/Station/56f132c8-51dc-44b2-9bd9-101153fa5832/Session&request=start&myappToken={appToken}"
+              controlMode: "RemoteWithQrCode"
+          schema:
+            $ref: "#/definitions/StationSettings"
+        400:
+          description: "Bad Request"
+          examples:
+            application/json:
+              errorTag:
+              - "First Error Detail found under this tag"
+              - "Second Error Details found under this tag"
+          schema:
+            type: "object"
+            additionalProperties:
+              type: "array"
+              items:
+                type: "string"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+      security:
+      - Bearer: []
+  /api/v1/stations/{stationId}:
+    get:
+      tags:
+      - "Stations"
+      summary: "Get the Station's State (Auth)"
+      operationId: "GetState"
+      consumes: []
+      produces:
+      - "application/json"
+      parameters:
+      - name: "stationId"
+        in: "path"
+        description: "Station Id"
+        required: true
+        type: "string"
+        format: "uuid"
+        x-exportParamName: "StationId"
+      responses:
+        200:
+          description: "Success"
+          examples:
+            application/json:
+              stationId: "838c3a21-aacb-4012-8011-f20f8767f09f"
+              displayName: "Arcade One / Blue Room"
+              controlMode: "Local"
+              networkState: "Connected"
+              session:
+                sessionId: "7b06f99c-fc05-4dd8-b89f-d35d793e4a24"
+                state: "Started"
+                startedOnUtc: "2019-06-07T11:32:07.064294+08:00"
+                maxDurationLimit: "00:05:58.1770650"
+          schema:
+            $ref: "#/definitions/StationCurrentState"
+        400:
+          description: "Bad Request"
+          examples:
+            application/json:
+              errorTag:
+              - "First Error Detail found under this tag"
+              - "Second Error Details found under this tag"
+          schema:
+            type: "object"
+            additionalProperties:
+              type: "array"
+              items:
+                type: "string"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+      security:
+      - Bearer: []
+  /api/v1/stations/settings:
+    get:
+      tags:
+      - "Stations"
+      summary: "Gets the Settings of all Stations (Auth)"
+      operationId: "GetSettings"
+      consumes: []
+      produces:
+      - "application/json"
+      parameters: []
+      responses:
+        200:
+          description: "Success"
+          examples:
+            application/json:
+            - stationId: "838c3a21-aacb-4012-8011-f20f8767f09f"
+              displayName: "Arcade One / Blue Room"
+              controlMode: "Local"
+            - stationId: "56f132c8-51dc-44b2-9bd9-101153fa5832"
+              displayName: "Arcade One / Red Room"
+              controlMode: "Remote"
+            - stationId: "56f132c8-51dc-44b2-9bd9-101153fa5832"
+              displayName: "Arcade Two / Red Room"
+              qrCode: "http://api.myarcade.com/Station/56f132c8-51dc-44b2-9bd9-101153fa5832/Session&request=start&myappToken={appToken}"
+              controlMode: "RemoteWithQrCode"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/StationSettings"
+            uniqueItems: false
+        400:
+          description: "Bad Request"
+          examples:
+            application/json:
+              errorTag:
+              - "First Error Detail found under this tag"
+              - "Second Error Details found under this tag"
+          schema:
+            type: "object"
+            additionalProperties:
+              type: "array"
+              items:
+                type: "string"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+      security:
+      - Bearer: []
+  /api/v1/stations/{stationId}/settings:
+    get:
+      tags:
+      - "Stations"
+      summary: "Get the Settings of an Station (Auth)"
+      operationId: "GetSettingsByStationId"
+      consumes: []
+      produces:
+      - "application/json"
+      parameters:
+      - name: "stationId"
+        in: "path"
+        description: "Station Id"
+        required: true
+        type: "string"
+        format: "uuid"
+        x-exportParamName: "StationId"
+      responses:
+        200:
+          description: "Success"
+          examples:
+            application/json:
+              stationId: "838c3a21-aacb-4012-8011-f20f8767f09f"
+              displayName: "Arcade One / Blue Room"
+              qrCode: "http://api.myarcade.com/Station/56f132c8-51dc-44b2-9bd9-101153fa5832/Session&request=start&myappToken={appToken}"
+              controlMode: "RemoteWithQrCode"
+          schema:
+            $ref: "#/definitions/StationSettings"
+        400:
+          description: "Bad Request"
+          examples:
+            application/json:
+              errorTag:
+              - "First Error Detail found under this tag"
+              - "Second Error Details found under this tag"
+          schema:
+            type: "object"
+            additionalProperties:
+              type: "array"
+              items:
+                type: "string"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+      security:
+      - Bearer: []
+    post:
+      tags:
+      - "Stations"
+      summary: "Sets the Settings for an Station (Auth)"
+      operationId: "SetSettings"
+      consumes:
+      - "application/json-patch+json"
+      - "application/json"
+      - "text/json"
+      - "application/*+json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "stationId"
+        in: "path"
+        description: "Station Id"
+        required: true
+        type: "string"
+        format: "uuid"
+        x-exportParamName: "StationId"
+      - in: "body"
+        name: "setSettingsRequest"
+        description: "Settings Dto"
+        required: false
+        schema:
+          $ref: "#/definitions/RequestStationSettings"
+        x-exportParamName: "SetSettingsRequest"
+      responses:
+        200:
+          description: "Success"
+        400:
+          description: "Bad Request"
+          examples:
+            application/json:
+              errorTag:
+              - "First Error Detail found under this tag"
+              - "Second Error Details found under this tag"
+          schema:
+            type: "object"
+            additionalProperties:
+              type: "array"
+              items:
+                type: "string"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+      security:
+      - Bearer: []
+  /api/v1/stations/{stationId}/settings/qrcode:
+    post:
+      tags:
+      - "Stations"
+      summary: "Sets the QrCode (Auth)"
+      operationId: "SetStationQrCode"
+      consumes:
+      - "application/json-patch+json"
+      - "application/json"
+      - "text/json"
+      - "application/*+json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "stationId"
+        in: "path"
+        description: "Station Id"
+        required: true
+        type: "string"
+        format: "uuid"
+        x-exportParamName: "StationId"
+      - in: "body"
+        name: "setQrCodeRequest"
+        description: "QrCode"
+        required: false
+        schema:
+          $ref: "#/definitions/RequestStationQrCode"
+        x-exportParamName: "SetQrCodeRequest"
+      responses:
+        200:
+          description: "Success"
+        400:
+          description: "Bad Request"
+          examples:
+            application/json:
+              errorTag:
+              - "First Error Detail found under this tag"
+              - "Second Error Details found under this tag"
+          schema:
+            type: "object"
+            additionalProperties:
+              type: "array"
+              items:
+                type: "string"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+      security:
+      - Bearer: []
+  /api/v1/stations/{stationId}/settings/mode:
+    post:
+      tags:
+      - "Stations"
+      summary: "Sets the Operation Mode (Auth)"
+      operationId: "SetStationMode"
+      consumes:
+      - "application/json-patch+json"
+      - "application/json"
+      - "text/json"
+      - "application/*+json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "stationId"
+        in: "path"
+        description: "Station Id"
+        required: true
+        type: "string"
+        format: "uuid"
+        x-exportParamName: "StationId"
+      - in: "body"
+        name: "setModeRequest"
+        description: "The Operation Mode"
+        required: false
+        schema:
+          $ref: "#/definitions/RequestStationMode"
+        x-exportParamName: "SetModeRequest"
+      responses:
+        200:
+          description: "Success"
+        400:
+          description: "Bad Request"
+          examples:
+            application/json:
+              errorTag:
+              - "First Error Detail found under this tag"
+              - "Second Error Details found under this tag"
+          schema:
+            type: "object"
+            additionalProperties:
+              type: "array"
+              items:
+                type: "string"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+      security:
+      - Bearer: []
+  /api/v1/stations/{stationId}/settings/password:
+    post:
+      tags:
+      - "Stations"
+      summary: "Changes the Password (Auth)"
+      operationId: "SetStationPassword"
+      consumes:
+      - "application/json-patch+json"
+      - "application/json"
+      - "text/json"
+      - "application/*+json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "stationId"
+        in: "path"
+        description: "Station Id"
+        required: true
+        type: "string"
+        format: "uuid"
+        x-exportParamName: "StationId"
+      - in: "body"
+        name: "setPasswordRequest"
+        description: "New Password"
+        required: false
+        schema:
+          $ref: "#/definitions/RequestSetStationPassword"
+        x-exportParamName: "SetPasswordRequest"
+      responses:
+        200:
+          description: "Success"
+        400:
+          description: "Bad Request"
+          examples:
+            application/json:
+              errorTag:
+              - "First Error Detail found under this tag"
+              - "Second Error Details found under this tag"
+          schema:
+            type: "object"
+            additionalProperties:
+              type: "array"
+              items:
+                type: "string"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+      security:
+      - Bearer: []
+  /api/v1/stations/{stationId}/sessions:
+    get:
+      tags:
+      - "Stations"
+      summary: "Gets closed Sessions (Auth)"
+      operationId: "GetSessionLogsByStationId"
+      consumes: []
+      produces:
+      - "application/json"
+      parameters:
+      - name: "stationId"
+        in: "path"
+        description: "Station Id"
+        required: true
+        type: "string"
+        format: "uuid"
+        x-exportParamName: "StationId"
+      - name: "take"
+        in: "query"
+        description: "Entries to return"
+        required: false
+        type: "integer"
+        default: 50
+        maximum: 300
+        minimum: 1
+        format: "int32"
+        x-exportParamName: "Take"
+        x-optionalDataType: "Int32"
+      - name: "skip"
+        in: "query"
+        description: "Entries to skip"
+        required: false
+        type: "integer"
+        default: 0
+        format: "int32"
+        x-exportParamName: "Skip"
+        x-optionalDataType: "Int32"
+      responses:
+        200:
+          description: "Success"
+          examples:
+            application/json:
+            - stationId: "838c3a21-aacb-4012-8011-f20f8767f09f"
+              sessionId: "4ce7f685-48a0-43ae-8e12-9eaf1a2acf75"
+              requestedBy: "WebApi"
+              latestState: "Ended"
+              startedUtc: "2019-06-04T19:22:28.242865+08:00"
+              reference: "Your reference would be here"
+              endedUtc: "2019-06-04T20:47:17.0573+08:00"
+              stoppedBy: "RemoteLogout"
+            - stationId: "838c3a21-aacb-4012-8011-f20f8767f09f"
+              sessionId: "ded70844-8f52-4ad9-9a59-79a0f02f7583"
+              requestedBy: "WebApi"
+              latestState: "Ended"
+              startedUtc: "2019-06-07T14:25:04.465401+08:00"
+              reference: "NID:14-C:0007-P:0.50-D:00-05-00"
+              maxDurationLimit: "00:08:30"
+              endedUtc: "2019-06-07T14:33:34.001363+08:00"
+              stoppedBy: "LimitReached"
+              changeRequests:
+              - id: "686a220c-9d9a-4617-ba8f-15de412916b8"
+                createdOnUtc: "2019-06-07T14:27:58.497276+08:00"
+                reference: "UID:01-CID:0007-PAY:1.00USD-DUR:00-02-00"
+                timeChange: "00:02:00"
+              - id: "b7c20d5a-6080-4466-ad95-4910e025ac92"
+                createdOnUtc: "2019-06-07T14:28:31.373925+08:00"
+                reference: "UID:02-CID:0007-PAY:0.50USD-DUR:00-01-00"
+                timeChange: "00:01:00"
+              - id: "ea76c484-8b0d-4b99-bf64-771b52a1bfef"
+                createdOnUtc: "2019-06-07T14:32:57.088249+08:00"
+                reference: "ID:03-CID:0007-PAY:0.25USD-DUR:00-00-30"
+                timeChange: "00:00:30"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/SessionLog"
+            uniqueItems: false
+        400:
+          description: "Bad Request"
+          examples:
+            application/json:
+              errorTag:
+              - "First Error Detail found under this tag"
+              - "Second Error Details found under this tag"
+          schema:
+            type: "object"
+            additionalProperties:
+              type: "array"
+              items:
+                type: "string"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+      security:
+      - Bearer: []
+    put:
+      tags:
+      - "Stations"
+      summary: "Creates a Session (Auth)"
+      operationId: "SessionCreate"
+      consumes:
+      - "application/json-patch+json"
+      - "application/json"
+      - "text/json"
+      - "application/*+json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "stationId"
+        in: "path"
+        description: "Station Id"
+        required: true
+        type: "string"
+        format: "uuid"
+        x-exportParamName: "StationId"
+      - in: "body"
+        name: "createSessionRequest"
+        description: "New Session Request Dto"
+        required: false
+        schema:
+          $ref: "#/definitions/RequestNewStationSession"
+        x-exportParamName: "CreateSessionRequest"
+      responses:
+        200:
+          description: "Success"
+          examples:
+            application/json:
+              stationId: "4bca67bf-cc6c-4c25-90d1-27ab5062d4dd"
+              sessionId: "3b13f53c-3196-4910-b1fd-71199d74fc6b"
+          schema:
+            $ref: "#/definitions/CreatedSession"
+        400:
+          description: "Bad Request"
+          examples:
+            application/json:
+              errorTag:
+              - "First Error Detail found under this tag"
+              - "Second Error Details found under this tag"
+          schema:
+            type: "object"
+            additionalProperties:
+              type: "array"
+              items:
+                type: "string"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+      security:
+      - Bearer: []
+  /api/v1/stations/{stationId}/sessions/current/update:
+    post:
+      tags:
+      - "Stations"
+      summary: "Updates the running Session. (Auth)"
+      operationId: "SessionUpdate"
+      consumes:
+      - "application/json-patch+json"
+      - "application/json"
+      - "text/json"
+      - "application/*+json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "stationId"
+        in: "path"
+        description: "Station Id"
+        required: true
+        type: "string"
+        format: "uuid"
+        x-exportParamName: "StationId"
+      - in: "body"
+        name: "updateSessionRequest"
+        description: "The Update Request Dto"
+        required: false
+        schema:
+          $ref: "#/definitions/RequestSessionUpdate"
+        x-exportParamName: "UpdateSessionRequest"
+      responses:
+        200:
+          description: "Success"
+          examples:
+            application/json:
+              stationId: "4bca67bf-cc6c-4c25-90d1-27ab5062d4dd"
+              sessionId: "3b390a16-1ce6-44d9-aef5-e91cdfbc907a"
+              changeRequestId: "e4bc366a-108b-4f99-96b6-5887767666b0"
+          schema:
+            $ref: "#/definitions/UpdatedSession"
+        400:
+          description: "Bad Request"
+          examples:
+            application/json:
+              errorTag:
+              - "First Error Detail found under this tag"
+              - "Second Error Details found under this tag"
+          schema:
+            type: "object"
+            additionalProperties:
+              type: "array"
+              items:
+                type: "string"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+      security:
+      - Bearer: []
+  /api/v1/stations/{stationId}/sessions/current/stop:
+    post:
+      tags:
+      - "Stations"
+      summary: "Stops the running Session (Auth)"
+      operationId: "SessionStop"
+      consumes: []
+      produces:
+      - "application/json"
+      parameters:
+      - name: "stationId"
+        in: "path"
+        description: "Station Id"
+        required: true
+        type: "string"
+        format: "uuid"
+        x-exportParamName: "StationId"
+      responses:
+        200:
+          description: "Success"
+          examples:
+            application/json:
+              stationId: "4bca67bf-cc6c-4c25-90d1-27ab5062d4dd"
+              sessionId: "6947b5d4-8cb6-4feb-b57c-c147c7db7a7e"
+          schema:
+            $ref: "#/definitions/StoppedSession"
+        400:
+          description: "Bad Request"
+          examples:
+            application/json:
+              errorTag:
+              - "First Error Detail found under this tag"
+              - "Second Error Details found under this tag"
+          schema:
+            type: "object"
+            additionalProperties:
+              type: "array"
+              items:
+                type: "string"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+      security:
+      - Bearer: []
+  /api/v1/stations/sessions:
+    get:
+      tags:
+      - "Stations"
+      summary: "Gets closed Sessions from all stations (Auth)"
+      operationId: "GetSessionLogsAll"
+      consumes: []
+      produces:
+      - "application/json"
+      parameters:
+      - name: "take"
+        in: "query"
+        description: "Entries to return"
+        required: false
+        type: "integer"
+        default: 50
+        maximum: 300
+        minimum: 1
+        format: "int32"
+        x-exportParamName: "Take"
+        x-optionalDataType: "Int32"
+      - name: "skip"
+        in: "query"
+        description: "Entries to skip"
+        required: false
+        type: "integer"
+        default: 0
+        format: "int32"
+        x-exportParamName: "Skip"
+        x-optionalDataType: "Int32"
+      responses:
+        200:
+          description: "Success"
+          examples:
+            application/json:
+            - stationId: "838c3a21-aacb-4012-8011-f20f8767f09f"
+              sessionId: "0855ad85-50e3-4df9-8648-884d97e7bb97"
+              requestedBy: "WebApi"
+              latestState: "Ended"
+              startedUtc: "2019-06-04T19:22:28.242865+08:00"
+              reference: "Your reference would be here"
+              endedUtc: "2019-06-04T20:47:17.0573+08:00"
+              stoppedBy: "RemoteLogout"
+            - stationId: "838c3a21-aacb-4012-8011-f20f8767f09f"
+              sessionId: "875a4c69-9e74-43c1-808c-8aea4234f85e"
+              requestedBy: "WebApi"
+              latestState: "Ended"
+              startedUtc: "2019-06-07T14:25:04.465401+08:00"
+              reference: "NID:14-C:0007-P:0.50-D:00-05-00"
+              maxDurationLimit: "00:08:30"
+              endedUtc: "2019-06-07T14:33:34.001363+08:00"
+              stoppedBy: "LimitReached"
+              changeRequests:
+              - id: "474edc3e-a75b-4787-a9cf-863e541da494"
+                createdOnUtc: "2019-06-07T14:27:58.497276+08:00"
+                reference: "UID:01-CID:0007-PAY:1.00USD-DUR:00-02-00"
+                timeChange: "00:02:00"
+              - id: "c6fefe29-516d-479f-80c9-1cc51011a152"
+                createdOnUtc: "2019-06-07T14:28:31.373925+08:00"
+                reference: "UID:02-CID:0007-PAY:0.50USD-DUR:00-01-00"
+                timeChange: "00:01:00"
+              - id: "78dd5d9a-64fb-4f19-bab2-8715140af12a"
+                createdOnUtc: "2019-06-07T14:32:57.088249+08:00"
+                reference: "ID:03-CID:0007-PAY:0.25USD-DUR:00-00-30"
+                timeChange: "00:00:30"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/SessionLog"
+            uniqueItems: false
+        400:
+          description: "Bad Request"
+          examples:
+            application/json:
+              errorTag:
+              - "First Error Detail found under this tag"
+              - "Second Error Details found under this tag"
+          schema:
+            type: "object"
+            additionalProperties:
+              type: "array"
+              items:
+                type: "string"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+      security:
+      - Bearer: []
+securityDefinitions:
+  Bearer:
+    description: "Please insert JWT with Bearer into field"
+    type: "apiKey"
+    name: "Authorization"
+    in: "header"
+definitions:
+  RequestChangePassword:
+    type: "object"
+    required:
+    - "currentPassword"
+    - "newPassword"
+    properties:
+      currentPassword:
+        type: "string"
+        minLength: 10
+        maxLength: 80
+      newPassword:
+        type: "string"
+        minLength: 10
+        maxLength: 80
+    example:
+      currentPassword: "MyPassword-1234"
+      newPassword: "MyNewPassword#1234"
+  RequestCreateStation:
+    type: "object"
+    required:
+    - "displayName"
+    - "password"
+    properties:
+      displayName:
+        type: "string"
+        minLength: 3
+        maxLength: 30
+      password:
+        type: "string"
+        minLength: 10
+        maxLength: 80
+    example:
+      password: "password"
+      displayName: "displayName"
+  RequestEmailConfirmation:
+    type: "object"
+    required:
+    - "emailConfirmationToken"
+    - "username"
+    properties:
+      username:
+        type: "string"
+        minLength: 8
+        maxLength: 30
+      emailConfirmationToken:
+        type: "string"
+        minLength: 100
+        maxLength: 350
+    example:
+      username: "username"
+      emailConfirmationToken: "AfBJ1FnxXEl5EhpahoZ8sI5L9m7LlkwoRtZXboFFWwdLC2KKtE+MfpnmWbK13HdkzJ6I1e9EzCaO/FneHQKKhNNsFZiXHreBE/o0XkUDqVPQjErk07IbLGm5z4IYXmeOrbkuRD0hYN9eYAAxj3QGh4tS8I7lo0hGsxZWigpMFLen2+GgrVwu/oZJC7zXvlSrcpbz1C32qh5ns9cJf0bLA8xB13aI8K0Ctu2MBkYyMEF/jQnd"
+  RequestForgotPassword:
+    type: "object"
+    required:
+    - "username"
+    properties:
+      username:
+        type: "string"
+        minLength: 8
+        maxLength: 30
+    example:
+      username: "username"
+  RequestLoginModel:
+    type: "object"
+    required:
+    - "password"
+    - "username"
+    properties:
+      username:
+        type: "string"
+        minLength: 8
+        maxLength: 30
+      password:
+        type: "string"
+        minLength: 10
+        maxLength: 80
+    example:
+      username: "jamesjones"
+      password: "MyPassword-1234"
+  RequestNewStationSession:
+    type: "object"
+    properties:
+      reference:
+        type: "string"
+        maxLength: 50
+      duration:
+        type: "string"
+    example:
+      reference: "NID:14-C:0007-P:0.50-D:00-05-00"
+  RequestRegisterUser:
+    type: "object"
+    required:
+    - "eMailAddress"
+    - "password"
+    - "username"
+    properties:
+      username:
+        type: "string"
+        minLength: 8
+        maxLength: 30
+      eMailAddress:
+        type: "string"
+        minLength: 6
+        maxLength: 100
+      password:
+        type: "string"
+        minLength: 10
+        maxLength: 80
+    example:
+      username: "username"
+      eMailAddress: "myemail@example.com"
+      password: "SecurePassword-1234"
+  RequestResendConfirmationEmail:
+    type: "object"
+    required:
+    - "username"
+    properties:
+      username:
+        type: "string"
+        minLength: 8
+        maxLength: 30
+    example:
+      username: "username"
+  RequestResetPassword:
+    type: "object"
+    required:
+    - "newPassword"
+    - "passwordResetToken"
+    - "username"
+    properties:
+      username:
+        type: "string"
+        minLength: 8
+        maxLength: 30
+      passwordResetToken:
+        type: "string"
+        minLength: 100
+        maxLength: 350
+      newPassword:
+        type: "string"
+        minLength: 10
+        maxLength: 80
+    example:
+      username: "username"
+      passwordResetToken: "CfDJ8FnxOEl5EhpahoZ8sI5L9m7LlkwoRtZXboFFWwdLC2KKtE+MfpnmWbK13HdkzJ6I1e9EzCaO/FneHQKKhNNsFZiXHreBE/o0XkUDqVPQjErk07IbLGm5z4IYXmeOrbkuRD0hYN9eYAAxj3QGh4tS8I7lo0hGsxZWigpMFLen2+GgrVwu/oZJC7zXvlSrcpbz1C32qh5ns9cJf0bLA8xB13aI8K0Ctu6MBkJyMED/jQnd"
+      newPassword: "NewSecurePassword#1234"
+  RequestSessionUpdate:
+    type: "object"
+    required:
+    - "duration"
+    properties:
+      reference:
+        type: "string"
+        maxLength: 50
+      duration:
+        type: "string"
+    example:
+      reference: "UID:01-CID:0007-PAY:1.00USD-DUR:00-01-30"
+      duration: "00:01:30"
+  RequestSetStationPassword:
+    type: "object"
+    required:
+    - "password"
+    properties:
+      password:
+        type: "string"
+        minLength: 10
+        maxLength: 80
+    example:
+      password: "SecurePassword#_0001"
+  RequestStationMode:
+    type: "object"
+    required:
+    - "mode"
+    properties:
+      mode:
+        type: "string"
+        enum:
+        - "Undefined"
+        - "Local"
+        - "Remote"
+        - "RemoteWithQrCode"
+    example:
+      mode: "Local"
+  RequestStationQrCode:
+    type: "object"
+    properties:
+      qrCode:
+        type: "string"
+        minLength: 1
+        maxLength: 128
+    example:
+      qrCode: "https://api.company.com/leapplay/838c3a21-aacb-4012-8011-f20f8767f09f?customer={customerId}&app={appId}"
+  RequestStationSettings:
+    type: "object"
+    required:
+    - "displayName"
+    - "mode"
+    properties:
+      displayName:
+        type: "string"
+        minLength: 3
+        maxLength: 15
+      mode:
+        type: "string"
+        enum:
+        - "Undefined"
+        - "Local"
+        - "Remote"
+        - "RemoteWithQrCode"
+      qrCode:
+        type: "string"
+        minLength: 1
+        maxLength: 128
+    example:
+      displayName: "Arcade One / Blue Room"
+      mode: "RemoteWithQrCode"
+      qrCode: "http://api.myarcade.com/Station/56f132c8-51dc-44b2-9bd9-101153fa5832/Session&request=start&myappToken={appToken}"
+  RequestTokenRefresh:
+    type: "object"
+    required:
+    - "refreshToken"
+    properties:
+      refreshToken:
+        type: "string"
+        minLength: 240
+        maxLength: 240
+    example:
+      refreshToken: "GfBT1FnxNEl5GhpahoZ8sI5L9m7LlkwoHtUyboFFWwdLC2KKtE+MfpnmWbK12sdkzJ6I1e9EzCaO/FneHQKKhNNsFZiXHreBE/o0XkUDqVPQjErk07IbLGm5z4IYXmeOrbkuRD0hYN9eYAAxj3QGh4tS8I7lo0hGsxZWigpMFLen2+GgrOwu/oZJC7zXvlSrcpbz1C32qh5ns9cJf0bLA8xB13aI8K0Ctu2MBkYyMiF/jRpi"
+  AccessToken:
+    type: "object"
+    properties:
+      token:
+        type: "string"
+      expiresIn:
+        type: "integer"
+        format: "int32"
+  ChangedPasswordUser:
+    type: "object"
+    properties:
+      refreshToken:
+        type: "string"
+  ChangeRequest:
+    type: "object"
+    properties:
+      id:
+        type: "string"
+        format: "uuid"
+      createdOnUtc:
+        type: "string"
+        format: "date-time"
+      reference:
+        type: "string"
+      timeChange:
+        type: "string"
+  CreatedSession:
+    type: "object"
+    properties:
+      stationId:
+        type: "string"
+        format: "uuid"
+      sessionId:
+        type: "string"
+        format: "uuid"
+  LoginResponse:
+    type: "object"
+    properties:
+      accessToken:
+        $ref: "#/definitions/AccessToken"
+      refreshToken:
+        type: "string"
+  Session:
+    type: "object"
+    properties:
+      sessionId:
+        type: "string"
+        format: "uuid"
+      reference:
+        type: "string"
+      state:
+        type: "string"
+        enum:
+        - "Requested"
+        - "Delivered"
+        - "Started"
+        - "Ended"
+        - "Canceled"
+        - "DeliveryTimeout"
+        - "ResponseTimeout"
+      startedOnUtc:
+        type: "string"
+        format: "date-time"
+      startDuration:
+        type: "string"
+      maxDurationLimit:
+        type: "string"
+  SessionLog:
+    type: "object"
+    properties:
+      stationId:
+        type: "string"
+        format: "uuid"
+      sessionId:
+        type: "string"
+        format: "uuid"
+      requestedBy:
+        type: "string"
+        enum:
+        - "Undefined"
+        - "ShellClient"
+        - "WebApi"
+      latestState:
+        type: "string"
+        enum:
+        - "Requested"
+        - "Delivered"
+        - "Started"
+        - "Ended"
+        - "Canceled"
+        - "DeliveryTimeout"
+        - "ResponseTimeout"
+      startedUtc:
+        type: "string"
+        format: "date-time"
+      reference:
+        type: "string"
+      maxDurationLimit:
+        type: "string"
+      endedUtc:
+        type: "string"
+        format: "date-time"
+      stoppedBy:
+        type: "string"
+        enum:
+        - "Unknown"
+        - "UserLogout"
+        - "RemoteLogout"
+        - "Inactivity"
+        - "StationShutdown"
+        - "LimitReached"
+        - "ConnectionLoss"
+        - "SubscriptionEnded"
+      changeRequests:
+        type: "array"
+        items:
+          $ref: "#/definitions/ChangeRequest"
+  StationCurrentState:
+    type: "object"
+    properties:
+      stationId:
+        type: "string"
+        format: "uuid"
+      displayName:
+        type: "string"
+      controlMode:
+        type: "string"
+        enum:
+        - "Undefined"
+        - "Local"
+        - "Remote"
+        - "RemoteWithQrCode"
+      networkState:
+        type: "string"
+        enum:
+        - "Disconnected"
+        - "Connecting"
+        - "Connected"
+      session:
+        $ref: "#/definitions/Session"
+  StationSettings:
+    type: "object"
+    properties:
+      stationId:
+        type: "string"
+        format: "uuid"
+      displayName:
+        type: "string"
+      qrCode:
+        type: "string"
+      controlMode:
+        type: "string"
+        enum:
+        - "Undefined"
+        - "Local"
+        - "Remote"
+        - "RemoteWithQrCode"
+  StoppedSession:
+    type: "object"
+    properties:
+      stationId:
+        type: "string"
+        format: "uuid"
+      sessionId:
+        type: "string"
+        format: "uuid"
+  UpdatedSession:
+    type: "object"
+    properties:
+      stationId:
+        type: "string"
+        format: "uuid"
+      sessionId:
+        type: "string"
+        format: "uuid"
+      changeRequestId:
+        type: "string"
+        format: "uuid"
